@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memeberService;
+    MemberService memberService;
     MemoryMemberRepository memberRepository;
 
     @BeforeEach
     public void beforeEach() {
         memberRepository = new MemoryMemberRepository();
-        memeberService = new MemberService(memberRepository);
+        memberService = new MemberService(memberRepository);
     }
 
 
@@ -34,10 +34,10 @@ class MemberServiceTest {
         member.setName("hello");
 
         //when
-        Long saveId = memeberService.join(member);
+        Long saveId = memberService.join(member);
 
         //then
-        Member findeMember = memeberService.findOne(saveId).get();
+        Member findeMember = memberService.findOne(saveId).get();
         assertThat(member.getName()).isEqualTo(findeMember.getName());
     }
 
@@ -50,8 +50,8 @@ class MemberServiceTest {
         Member member2 = new Member();
         member2.setName("spring");
         //when
-        memeberService.join(member1);
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memeberService.join(member2));
+        memberService.join(member1);
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 //        try {
